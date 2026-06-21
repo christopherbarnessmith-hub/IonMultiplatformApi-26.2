@@ -121,13 +121,41 @@ That writes artifacts to:
 build/repo
 ```
 
-This scaffold does not include a Gradle wrapper yet. If you have Gradle installed, run this once from the project folder:
+## JitPack Maven
+
+Ion API is published through JitPack from GitHub tags and commits. This repository includes `jitpack.yml`, which tells JitPack to use Java 25 and run:
 
 ```text
-gradle wrapper
+./gradlew build publishToMavenLocal --no-problems-report
 ```
 
-After that, use `gradlew build`.
+Add JitPack to your Gradle repositories:
+
+```groovy
+repositories {
+    maven {
+        name = "JitPack"
+        url = uri("https://jitpack.io")
+    }
+}
+```
+
+Use the loader-specific artifact in the matching loader module. Replace `TAG` with the GitHub release tag or commit hash you want to depend on:
+
+```groovy
+// Fabric
+modImplementation "com.github.christopherbarnessmith-hub:ionapi-fabric:TAG"
+
+// NeoForge
+implementation "com.github.christopherbarnessmith-hub:ionapi-neoforge:TAG"
+```
+
+For the first public release, create a GitHub release/tag named `1.0.0`, then use:
+
+```groovy
+modImplementation "com.github.christopherbarnessmith-hub:ionapi-fabric:1.0.0"
+implementation "com.github.christopherbarnessmith-hub:ionapi-neoforge:1.0.0"
+```
 
 ## Using this from one of your mods
 

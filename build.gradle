@@ -4,8 +4,9 @@ plugins {
 }
 
 allprojects {
-    group = project.mod_group_id
-    version = project.mod_version
+    // JitPack group must match the GitHub account path.
+    group = "com.github.christopherbarnessmith-hub"
+    version = "1.0.0"
 }
 
 subprojects {
@@ -40,6 +41,10 @@ subprojects {
             maven {
                 name = "localIonMods"
                 url = rootProject.layout.buildDirectory.dir("repo")
+            }
+            maven {
+                name = "localIonSite"
+                url = rootProject.layout.projectDirectory.dir("site/maven")
             }
         }
     }

@@ -78,19 +78,32 @@ public final class ExampleModNeoForge {
 
 ## Dependency shape
 
+Add the JitPack Maven repository:
+
+```groovy
+repositories {
+    maven {
+        name = "JitPack"
+        url = uri("https://jitpack.io")
+    }
+}
+```
+
 Fabric source depends on the Fabric Ion API artifact:
 
 ```groovy
-modImplementation "com.ionapi:ionapi-fabric:0.1.0"
+modImplementation "com.github.christopherbarnessmith-hub:ionapi-fabric:TAG"
 ```
 
 NeoForge source depends on the NeoForge Ion API artifact:
 
 ```groovy
-implementation "com.ionapi:ionapi-neoforge:0.1.0"
+implementation "com.github.christopherbarnessmith-hub:ionapi-neoforge:TAG"
 ```
 
-If you publish this API with `publishAllPublicationsToLocalIonModsRepository`, add this repository to your mods:
+Replace `TAG` with the GitHub release tag or commit hash you want to depend on.
+
+For local development before the public Maven is uploaded, publish this API with `publishAllPublicationsToLocalIonModsRepository` and add this repository to your mods:
 
 ```groovy
 repositories {
