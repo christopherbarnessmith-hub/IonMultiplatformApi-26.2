@@ -1,0 +1,46 @@
+plugins {
+    id "java-library"
+    id "maven-publish"
+}
+
+allprojects {
+    group = project.mod_group_id
+    version = project.mod_version
+}
+
+subprojects {
+    apply plugin: "java-library"
+    apply plugin: "maven-publish"
+
+    base {
+        archivesName = "${rootProject.mod_id}-${project.name}"
+    }
+
+    java {
+        toolchain {
+            languageVersion = JavaLanguageVersion.of(rootProject.java_version as int)
+        }
+        withSourcesJar()
+    }
+
+    tasks.withType(JavaCompile).configureEach {
+        options.encoding = "UTF-8"
+        options.release = rootProject.java_version as int
+    }
+
+    publishing {
+        publications {
+            mavenJava(MavenPublication) {
+                artifactId = "${rootProject.mod_id}-${project.name}"
+                from components.java
+            }
+        }
+
+        repositories {
+            maven {
+                name = "localIonMods"
+                url = rootProject.layout.buildDirectory.dir("repo")
+            }
+        }
+    }
+}

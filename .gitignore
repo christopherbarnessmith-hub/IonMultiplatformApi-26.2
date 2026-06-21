@@ -1,0 +1,8 @@
+# Project exclude paths
+/.gradle/
+/build/
+/fabric/.gradle/
+/fabric/build/
+/fabric/build/classes/java/main/
+/neoforge/build/
+/neoforge/build/classes/java/main/
