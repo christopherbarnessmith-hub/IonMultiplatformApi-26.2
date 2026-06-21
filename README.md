@@ -144,17 +144,17 @@ Use the loader-specific artifact in the matching loader module. Replace `TAG` wi
 
 ```groovy
 // Fabric
-modImplementation "com.github.christopherbarnessmith-hub:ionapi-fabric:TAG"
+modImplementation "com.github.christopherbarnessmith-hub.IonMultiplatformApi-26.2:ionapi-fabric:TAG"
 
 // NeoForge
-implementation "com.github.christopherbarnessmith-hub:ionapi-neoforge:TAG"
+implementation "com.github.christopherbarnessmith-hub.IonMultiplatformApi-26.2:ionapi-neoforge:TAG"
 ```
 
 For the first public release, create a GitHub release/tag named `1.0.0`, then use:
 
 ```groovy
-modImplementation "com.github.christopherbarnessmith-hub:ionapi-fabric:1.0.0"
-implementation "com.github.christopherbarnessmith-hub:ionapi-neoforge:1.0.0"
+modImplementation "com.github.christopherbarnessmith-hub.IonMultiplatformApi-26.2:ionapi-fabric:1.0.0"
+implementation "com.github.christopherbarnessmith-hub.IonMultiplatformApi-26.2:ionapi-neoforge:1.0.0"
 ```
 
 ## Using this from one of your mods

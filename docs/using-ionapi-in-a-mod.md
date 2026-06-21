@@ -92,13 +92,13 @@ repositories {
 Fabric source depends on the Fabric Ion API artifact:
 
 ```groovy
-modImplementation "com.github.christopherbarnessmith-hub:ionapi-fabric:TAG"
+modImplementation "com.github.christopherbarnessmith-hub.IonMultiplatformApi-26.2:ionapi-fabric:TAG"
 ```
 
 NeoForge source depends on the NeoForge Ion API artifact:
 
 ```groovy
-implementation "com.github.christopherbarnessmith-hub:ionapi-neoforge:TAG"
+implementation "com.github.christopherbarnessmith-hub.IonMultiplatformApi-26.2:ionapi-neoforge:TAG"
 ```
 
 Replace `TAG` with the GitHub release tag or commit hash you want to depend on.

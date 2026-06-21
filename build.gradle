@@ -4,9 +4,9 @@ plugins {
 }
 
 allprojects {
-    // JitPack group must match the GitHub account path.
-    group = "com.github.christopherbarnessmith-hub"
-    version = "1.0.0"
+    // JitPack multi-module artifacts use com.github.USER.REPO:MODULE:VERSION.
+    group = project.mod_group_id
+    version = findProperty("version") ?: project.mod_version
 }
 
 subprojects {
