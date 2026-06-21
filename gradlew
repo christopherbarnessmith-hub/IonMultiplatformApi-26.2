@@ -88,6 +88,29 @@ APP_BASE_NAME=${0##*/}
 # Discard cd standard output in case $CDPATH is set (https://github.com/gradle/gradle/issues/25036)
 APP_HOME=$( cd -P "${APP_HOME:-./}" > /dev/null && printf '%s\n' "$PWD" ) || exit
 
+# JitPack can invoke the wrapper for task discovery before jitpack.yml install
+# commands run. Gradle 9 needs Java 17+, and this project compiles for Java 25,
+# so switch through SDKMAN early when the image starts on Java 8.
+if command -v java >/dev/null 2>&1; then
+    java_version_output=$(java -version 2>&1 | sed -n '1p')
+else
+    java_version_output=
+fi
+case "$java_version_output" in
+  *\"1.\"*|*\"9.\"*|*\"10.\"*|*\"11.\"*|*\"12.\"*|*\"13.\"*|*\"14.\"*|*\"15.\"*|*\"16.\"*|"")
+    if [ -s "$HOME/.sdkman/bin/sdkman-init.sh" ] && command -v bash >/dev/null 2>&1; then
+        sdkman_java_home=$(
+            bash -lc 'source "$HOME/.sdkman/bin/sdkman-init.sh" >/dev/null 2>&1; sdk install java 25.0.1-tem >/dev/null 2>&1 || sdk install java 25.0.0-tem >/dev/null 2>&1 || sdk install java 25-open >/dev/null 2>&1 || true; sdk use java 25.0.1-tem >/dev/null 2>&1 || sdk use java 25.0.0-tem >/dev/null 2>&1 || sdk use java 25-open >/dev/null 2>&1 || true; printf "%s" "$JAVA_HOME"'
+        )
+        if [ -n "$sdkman_java_home" ] && [ -d "$sdkman_java_home" ]; then
+            JAVA_HOME=$sdkman_java_home
+            PATH=$JAVA_HOME/bin:$PATH
+            export JAVA_HOME PATH
+        fi
+    fi
+    ;;
+esac
+
 # Use the maximum available, or set MAX_FD != -1 to use that value.
 MAX_FD=maximum
 
