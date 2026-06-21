@@ -150,11 +150,11 @@ modImplementation "com.github.christopherbarnessmith-hub.IonMultiplatformApi-26.
 implementation "com.github.christopherbarnessmith-hub.IonMultiplatformApi-26.2:ionapi-neoforge:TAG"
 ```
 
-For the first public release, create a GitHub release/tag named `1.0.0`, then use:
+For the first public release, create a GitHub release/tag named `2.0.1`, then use:
 
 ```groovy
-modImplementation "com.github.christopherbarnessmith-hub.IonMultiplatformApi-26.2:ionapi-fabric:1.0.0"
-implementation "com.github.christopherbarnessmith-hub.IonMultiplatformApi-26.2:ionapi-neoforge:1.0.0"
+modImplementation "com.github.christopherbarnessmith-hub.IonMultiplatformApi-26.2:ionapi-fabric:2.0.1"
+implementation "com.github.christopherbarnessmith-hub.IonMultiplatformApi-26.2:ionapi-neoforge:2.0.1"
 ```
 
 ## Using this from one of your mods
