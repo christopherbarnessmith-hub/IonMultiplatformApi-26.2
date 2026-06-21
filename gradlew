@@ -96,17 +96,25 @@ if command -v java >/dev/null 2>&1; then
 else
     java_version_output=
 fi
+echo "Ion API JitPack Java bootstrap: before: ${java_version_output:-no java found}" >&2
 case "$java_version_output" in
   *\"1.\"*|*\"9.\"*|*\"10.\"*|*\"11.\"*|*\"12.\"*|*\"13.\"*|*\"14.\"*|*\"15.\"*|*\"16.\"*|"")
-    if [ -s "$HOME/.sdkman/bin/sdkman-init.sh" ] && command -v bash >/dev/null 2>&1; then
+    sdkman_dir="${SDKMAN_DIR:-$HOME/.sdkman}"
+    if [ -s "$sdkman_dir/bin/sdkman-init.sh" ] && command -v bash >/dev/null 2>&1; then
         sdkman_java_home=$(
-            bash -lc 'source "$HOME/.sdkman/bin/sdkman-init.sh" >/dev/null 2>&1; sdk install java 25.0.1-tem >/dev/null 2>&1 || sdk install java 25.0.0-tem >/dev/null 2>&1 || sdk install java 25-open >/dev/null 2>&1 || true; sdk use java 25.0.1-tem >/dev/null 2>&1 || sdk use java 25.0.0-tem >/dev/null 2>&1 || sdk use java 25-open >/dev/null 2>&1 || true; printf "%s" "$JAVA_HOME"'
+            SDKMAN_DIR="$sdkman_dir" bash -lc 'source "$SDKMAN_DIR/bin/sdkman-init.sh" >/dev/null 2>&1; sdk install java 25.0.1-tem >/dev/null 2>&1 || sdk install java 25.0.0-tem >/dev/null 2>&1 || sdk install java 25-open >/dev/null 2>&1 || true; sdk use java 25.0.1-tem >/dev/null 2>&1 || sdk use java 25.0.0-tem >/dev/null 2>&1 || sdk use java 25-open >/dev/null 2>&1 || true; printf "%s" "$JAVA_HOME"'
         )
         if [ -n "$sdkman_java_home" ] && [ -d "$sdkman_java_home" ]; then
             JAVA_HOME=$sdkman_java_home
             PATH=$JAVA_HOME/bin:$PATH
             export JAVA_HOME PATH
+            echo "Ion API JitPack Java bootstrap: selected JAVA_HOME=$JAVA_HOME" >&2
+            java -version >&2
+        else
+            echo "Ion API JitPack Java bootstrap: SDKMAN did not return a usable JAVA_HOME" >&2
         fi
+    else
+        echo "Ion API JitPack Java bootstrap: SDKMAN init not found at $sdkman_dir/bin/sdkman-init.sh or bash unavailable" >&2
     fi
     ;;
 esac
